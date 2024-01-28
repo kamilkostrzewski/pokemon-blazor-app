@@ -1,5 +1,5 @@
 # pokemon-blazor-app
 
-Blazor Web App site fo education purpose.
+Blazor Web App site fo education purposes.
 
 Work in progress
