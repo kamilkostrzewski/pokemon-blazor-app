@@ -1,4 +1,6 @@
 using PokemonBlazorApp.Client.Pages;
+using PokemonBlazorApp.Client.Services.Contracts;
+using PokemonBlazorApp.Client.Services;
 using PokemonBlazorApp.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+RegiterServices(builder.Services);
 
 var app = builder.Build();
 
@@ -33,3 +37,9 @@ app.MapRazorComponents<App>()
     .AddAdditionalAssemblies(typeof(Counter).Assembly);
 
 app.Run();
+
+static void RegiterServices(IServiceCollection services)
+{
+    services.AddHttpClient();
+    services.AddScoped<IPokemonService, PokemonService>();
+}
