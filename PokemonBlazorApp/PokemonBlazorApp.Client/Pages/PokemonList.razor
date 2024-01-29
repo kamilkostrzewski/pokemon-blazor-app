@@ -1,0 +1,42 @@
+﻿@page "/pokemon-list";
+@using PokemonBlazorApp.Client.Services.Contracts
+@using PokemonBlazorApp.Client.ViewModels
+@inject IPokemonService _pokemonService
+@rendermode InteractiveAuto
+
+<h3>Pokemons</h3>
+
+@if (_pokemons == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pokemon in _pokemons)
+            {
+                <tr>
+                    <td>@pokemon.Id</td>
+                    <td>@pokemon.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<PokemonViewModel>? _pokemons;
+
+    protected async override void OnInitialized()
+    {
+        _pokemons = await _pokemonService.GetPokemons(50);
+        StateHasChanged();
+    }
+}
